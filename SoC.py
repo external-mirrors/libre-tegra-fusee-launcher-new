@@ -73,8 +73,8 @@ class T20(IRAMHax):
         self.IRAM_EP0_BUFFER_ADDRESS = 0x40003000
         
         self.STACK_END         = 0x40008000
-        self.STACK_SPRAY_START = 0x4000222C #This will fall to the return address in stack
-        self.STACK_SPRAY_END   = self.STACK_SPRAY_START + 4
+        self.STACK_SPRAY_START = 0x40002000 #This will fall to the return address in stack
+        self.STACK_SPRAY_END   = self.STACK_SPRAY_START + 0x1000
 
         IRAMHax.__init__(self, *args, **kwargs)
 

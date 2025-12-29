@@ -524,8 +524,8 @@ class IRAMHax(EPHax):
                        f"DEVMEM=\"{devmem_cmd}\"\n")
 
         #Spray for stack
-        for addr in range(self.STACK_SPRAY_START, self.STACK_SPRAY_END, 4):
-            script_text += f"$DEVMEM 0x{addr:X} 32 0x{self.IRAM_PAYLOAD_ADDR:X}\n"
+        for addr in range(self.STACK_SPRAY_START, self.STACK_SPRAY_END, 8):
+            script_text += f"$DEVMEM 0x{addr:X} 64 0x{self.IRAM_PAYLOAD_ADDR:X}{self.IRAM_PAYLOAD_ADDR:X}\n"
 
         #Payload loader
         payload_len = len(payload)

@@ -11,6 +11,7 @@ T30_PIDS  = [0x7030, 0x7130, 0x7330]
 T114_PIDS = [0x7335, 0x7535]
 T124_PIDS = [0x7140, 0x7740, 0x7f40]
 T132_PIDS = [0x7F13]
+T148_PIDS = [0x7714]
 T210_PIDS = [0x7321, 0x7721]
 
 # RCM Protocol header sizes.
@@ -31,6 +32,8 @@ def select_device_hax(arguments, vid, pid) -> EPHax|None:
             return T124(arguments=arguments, vid=vid, pid=pid)
         elif pid in T132_PIDS:
             return T132(arguments=arguments, vid=vid, pid=pid)
+        elif pid in T148_PIDS:
+            return T148(arguments=arguments, vid=vid, pid=pid)
         elif pid in T210_PIDS:
             return T210(arguments=arguments, vid=vid, pid=pid)
         else:
@@ -101,6 +104,19 @@ class T114(RCMHax):
         self.STACK_END           = self.RCM_PAYLOAD_ADDR
         self.STACK_SPRAY_END     = self.STACK_END - 1572 # exact position is known.
         self.STACK_SPRAY_START   = self.STACK_SPRAY_END - 4
+
+        RCMHax.__init__(self, *args, **kwargs)
+
+class T148(RCMHax):
+    def __init__(self, *args, **kwargs):
+        self.RCM_HEADER_SIZE  = RCM_V35_HEADER_SIZE
+        self.RCM_PAYLOAD_ADDR = 0x4000E000
+
+        self.COPY_BUFFER_ADDRESSES   = [0, 0x40007000] # Lower Buffer doesn't matter
+
+        self.STACK_END           = self.RCM_PAYLOAD_ADDR
+        self.STACK_SPRAY_END     = self.STACK_END
+        self.STACK_SPRAY_START   = self.STACK_SPRAY_END - 0x1000
 
         RCMHax.__init__(self, *args, **kwargs)
 

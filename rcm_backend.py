@@ -135,7 +135,7 @@ class RCMHax(EPHax):
     # Values to be set per SoC
     RCM_HEADER_SIZE = None
     RCM_PAYLOAD_ADDR = None
-    COPY_BUFFER_ADDRESSES = None
+    COPY_BUFFER_ADDRESSES = [0, 0]
     STACK_SPRAY_END = None
     STACK_SPRAY_START = None
 
@@ -143,9 +143,6 @@ class RCMHax(EPHax):
         """ Set up our RCM hack connection."""
 
         EPHax.__init__(self, *args, **kwargs)
-        
-        if self.COPY_BUFFER_ADDRESSES[0] == 0:
-            self.COPY_BUFFER_ADDRESSES[0] = self.COPY_BUFFER_ADDRESSES[1]
 
         if self.debug:
             print("RCM_HEADER_SIZE:" , self.RCM_HEADER_SIZE)
